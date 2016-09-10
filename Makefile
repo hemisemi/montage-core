@@ -8,7 +8,7 @@ BUILDDIR := .build
 DOCDIR := doc
 
 INCPATH := -I$(SRCDIR)
-LIBS	:= 
+LIBS	:= -lavformat -lavcodec -lavutil -lz -lm
 
 TARGET := hsm-montage
 INSTALL_PATH := /usr/include/hsm/montage
