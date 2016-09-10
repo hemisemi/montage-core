@@ -1,2 +1,7 @@
 src
 .
+src/nodes
+src/stream
+src/sources
+src/io
+src/io/ffmpeg
