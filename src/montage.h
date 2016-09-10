@@ -1,11 +1,9 @@
-#ifndef MONTAGE_H
-#define MONTAGE_H
+#pragma once
 
+namespace hsm{
+namespace montage{
 
-class montage
-{
-public:
-	montage();
-};
+bool init();
 
-#endif // MONTAGE_H
+}
+}

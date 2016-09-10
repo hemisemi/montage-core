@@ -1,6 +1,11 @@
 #include "video_source.h"
 
-video_source::video_source()
-{
+namespace hsm{
+namespace montage{
 
+source::data_type video_source::type() const{
+	return video;
+}
+
+}
 }

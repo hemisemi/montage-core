@@ -1,11 +1,35 @@
-#ifndef RESOURCE_H
-#define RESOURCE_H
+#pragma once
 
+#include <vector>
+#include <string>
 
-class resource
-{
+struct AVFormatContext;
+
+namespace hsm{
+namespace montage{
+namespace io{
+
+class source;
+
+class resource{
 public:
 	resource();
+
+	class handle{
+		//
+	};
+
+	bool load(const std::string & filename);
+	bool load(const std::string & filename, AVFormatContext *format);
+
+	virtual handle *new_handle() const = 0;
+
+	const std::vector<source *> & sources() const;
+
+private:
+	std::vector<source*> _sources;
 };
 
-#endif // RESOURCE_H
+}
+}
+}

@@ -1,11 +1,14 @@
-#ifndef VIDEO_SOURCE_H
-#define VIDEO_SOURCE_H
+#pragma once
 
+#include "source.h"
 
-class video_source
-{
+namespace hsm{
+namespace montage{
+
+class video_source : public source{
 public:
-	video_source();
+	virtual data_type type() const;
 };
 
-#endif // VIDEO_SOURCE_H
+}
+}

@@ -1,11 +1,24 @@
-#ifndef OUTPUT_H
-#define OUTPUT_H
+#pragma once
 
+#include "source.h"
 
-class output
-{
+namespace hsm{
+namespace montage{
+
+class input{
 public:
-	output();
+	montage::source::data_type type() const;
+
+	montage::source *source() const;
+	bool set_source(montage::source *src);
+
+protected:
+	input(montage::source::data_type type, montage::source *src = nullptr);
+
+private:
+	montage::source::data_type _type;
+	montage::source *_source;
 };
 
-#endif // OUTPUT_H
+}
+}

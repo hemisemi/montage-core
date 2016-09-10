@@ -1,11 +1,17 @@
-#ifndef ABSTRACT_H
-#define ABSTRACT_H
+#pragma once
 
+namespace hsm{
+namespace montage{
+namespace node{
 
-class abstract
-{
+class abstract{
 public:
 	abstract();
+
+private:
+	//std::vector<input *>
 };
 
-#endif // ABSTRACT_H
+}
+}
+}

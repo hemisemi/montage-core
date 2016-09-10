@@ -1,6 +1,11 @@
-#include "input.h"
+#include "source.h"
 
-input::input()
-{
+namespace hsm{
+namespace montage{
 
+source::~source(){
+	//
+}
+
+}
 }

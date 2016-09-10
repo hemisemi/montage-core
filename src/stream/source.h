@@ -1,11 +1,22 @@
-#ifndef INPUT_H
-#define INPUT_H
+namespace hsm{
+namespace montage{
 
-
-class input
-{
+class source{
 public:
-	input();
+	enum data_type{
+		numeric,
+
+		audio,
+		video,
+
+		audio_stream,
+		video_stream
+	};
+
+	virtual ~source() = 0;
+
+	virtual data_type type() const = 0;
 };
 
-#endif // INPUT_H
+}
+}

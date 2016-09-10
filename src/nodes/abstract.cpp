@@ -1,6 +1,13 @@
 #include "abstract.h"
 
-abstract::abstract()
-{
+namespace hsm{
+namespace montage{
+namespace node{
 
+abstract::abstract(){
+	//
+}
+
+}
+}
 }

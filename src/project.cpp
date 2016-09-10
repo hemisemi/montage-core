@@ -1,6 +1,11 @@
 #include "project.h"
 
-project::project()
-{
+namespace hsm{
+namespace montage{
 
+project::project(){
+	//
+}
+
+}
 }
