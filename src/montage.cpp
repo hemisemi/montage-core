@@ -1,19 +1,18 @@
 #include "montage.h"
+#include <iostream>
 
-extern "C"{
-#define __STDC_CONSTANT_MACROS // for UINT64_C
-#include <libavcodec/avcodec.h>
-#include <libavformat/avformat.h>
-}
+#include "io/ffmpeg/ffmpeg.h"
+#include "settings.h"
 
 namespace hsm{
 namespace montage{
 
 bool init(){
-	avcodec_register_all();
-	av_register_all();
+    return io::ffmpeg_init();
+}
 
-	return true;
+void init_settings(settings & s){
+    io::ffmpeg_init_settings(s);
 }
 
 }

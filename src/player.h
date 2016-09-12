@@ -2,16 +2,16 @@
 
 namespace hsm{
 namespace montage{
-namespace node{
 
-class abstract{
+class player{
 public:
-	abstract();
+    player();
+
+    //
 
 private:
-	//std::vector<input *>
+    //
 };
 
-}
 }
 }

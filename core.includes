@@ -5,3 +5,6 @@ src/stream
 src/sources
 src/io
 src/io/ffmpeg
+src/io/protocol
+src/video
+src/config
