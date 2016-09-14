@@ -1,6 +1,7 @@
 #pragma once
 
 #include "source.h"
+#include <hsm/ref.h>
 
 namespace hsm{
 namespace montage{
@@ -9,15 +10,15 @@ class input{
 public:
 	montage::source::data_type type() const;
 
-	montage::source *source() const;
-	bool set_source(montage::source *src);
+	hsm::ref<montage::source> source() const;
+	bool set_source(const hsm::ref<montage::source> & src);
 
 protected:
-	input(montage::source::data_type type, montage::source *src = nullptr);
+	input(montage::source::data_type type, const hsm::ref<montage::source> & src);
 
 private:
 	montage::source::data_type _type;
-	montage::source *_source;
+	hsm::ref<montage::source> _source;
 };
 
 }

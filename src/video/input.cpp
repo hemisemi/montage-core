@@ -5,12 +5,12 @@ namespace hsm{
 namespace montage{
 namespace video{
 
-input::input(video::source *src) : montage::input(montage::source::video, src){
+input::input(const ref<video::source> & src) : montage::input(montage::source::video, src){
     //
 }
 
-video::source *input::source() const{
-    return (video::source*)montage::input::source();
+hsm::ref<video::source> input::source() const{
+	return (hsm::ref<video::source>)montage::input::source();
 }
 
 }

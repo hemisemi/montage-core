@@ -10,9 +10,9 @@ class source;
 
 class input : public montage::input{
 public:
-    input(video::source *src = nullptr);
+	input(const hsm::ref<video::source> & src = hsm::ref<video::source>());
 
-    video::source *source() const;
+	hsm::ref<video::source> source() const;
 };
 
 }
