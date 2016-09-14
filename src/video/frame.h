@@ -1,8 +1,10 @@
+#pragma once
+
 #include <stddef.h>
 #include <inttypes.h>
 #include <vector>
 
-#include <hsm/bitmap.h>
+#include <hsm/paint/image.h>
 
 namespace hsm{
 namespace montage{
@@ -10,17 +12,16 @@ namespace video{
 
 class frame{
 public:
-    frame(size_t id, double time, const std::vector<hsm::bitmap *> & planes);
+    frame(double time, size_t width, size_t height, size_t plane_count = 1);
+    frame(double time, const std::vector<hsm::image *> & planes);
     ~frame();
 
-    size_t id() const;
     double time() const;
-    const std::vector<hsm::bitmap *> & planes() const;
+    const std::vector<hsm::image *> & planes() const;
 
 private:
-    size_t _id;
     double _time;
-    std::vector<hsm::bitmap *> _planes;
+    std::vector<hsm::image *> _planes;
 };
 
 }

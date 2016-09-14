@@ -17,7 +17,7 @@ class protocol;
 
 class resource{
 public:
-    resource(const settings & s);
+    resource();
 
     class instance{
     public:
@@ -60,8 +60,6 @@ private:
     io::protocol *_protocol;
 
     std::vector<source*> _sources;
-
-    const settings & _settings;
 };
 
 }

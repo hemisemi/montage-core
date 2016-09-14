@@ -10,16 +10,24 @@ class frame;
 
 class frame_buffer{
 public:
-    frame_buffer(size_t length);
+    frame_buffer(size_t capacity);
     ~frame_buffer();
+
+    frame *peek() const;
+    frame *consume();
+
+    bool empty() const;
 
     void clear();
 
-    void push_back(const frame *);
+    bool push_back(frame *);
 
 private:
+    size_t _capacity;
     size_t _len;
     frame **_data;
+
+    size_t _pos;
 };
 
 }

@@ -21,13 +21,14 @@ namespace hsm{
 namespace montage{
 namespace io{
 
-ffmpeg_video::ffmpeg_video(const io::resource & r, size_t stream_index, const settings & s) : _resource(r){
+ffmpeg_video::ffmpeg_video(const io::resource & r, size_t stream_index) : _resource(r){
 	_index = stream_index;
-    _dic = ffmpeg_alloc_dictionary(s);
+    _dic = nullptr;
 }
 
 ffmpeg_video::~ffmpeg_video(){
-    av_dict_free(&_dic);
+    if(_dic != nullptr)
+        av_dict_free(&_dic);
 }
 
 video::source::parser *ffmpeg_video::new_parser(){
@@ -84,19 +85,19 @@ ffmpeg_video::parser::parser(const ffmpeg_video & src, AVFormatContext *ctx, AVS
     _codec = codec;
     _codec_ctx = codec_ctx;
     _duration = (double)_ctx->duration / 1000000.0;
-    _pos = 0;
+    _time = 0.0;
 
     _frame = av_frame_alloc();
 
     for(size_t i = 0; i < 8; ++i)
-        _linesize[i] = _codec_ctx->width*4;
+        _linesize[i] = image::prefered_stride(bitmap::pixel_format::rgb, _codec_ctx->width);
 
     //size_t len = av_image_get_buffer_size(AV_PIX_FMT_ARGB, _codec_ctx->width, _codec_ctx->height, 1);
     //uint8_t *buffer = new uint8_t[len];
     //av_image_fill_arrays(_rgb_frame->data, _rgb_frame->linesize, nullptr, AV_PIX_FMT_ARGB, width, height, 1);
 
     _sws = sws_getContext(_codec_ctx->width, _codec_ctx->height, _codec_ctx->pix_fmt,
-                   _codec_ctx->width, _codec_ctx->height, AV_PIX_FMT_RGBA,
+                   _codec_ctx->width, _codec_ctx->height, AV_PIX_FMT_RGB24,
                    SWS_BILINEAR, nullptr, nullptr, nullptr);
 
     _packet = av_packet_alloc();
@@ -106,6 +107,21 @@ ffmpeg_video::parser::~parser(){
     av_packet_unref(_packet);
     avcodec_free_context(&_codec_ctx);
     avformat_close_input(&_ctx);
+}
+
+double ffmpeg_video::parser::time() const{
+    return _time;
+}
+
+double ffmpeg_video::parser::seek(double time){
+    int64_t timestamp = time * _stream->time_base.den / _stream->time_base.num;
+    if(av_seek_frame(_ctx, _src.stream_index(), timestamp, 0) < 0){
+        std::cerr << "seek failed" << std::endl;
+        return _time;
+    }
+
+    _time = time;
+    return _time;
 }
 
 video::frame *ffmpeg_video::parser::read_frame(){
@@ -128,13 +144,14 @@ video::frame *ffmpeg_video::parser::read_frame(){
 
                 sws_scale(_sws, _frame->data, _frame->linesize, 0, _codec_ctx->height, dst, _linesize);
 
-                std::vector<hsm::bitmap *> planes;
+                std::vector<hsm::image *> planes;
                 for(size_t i = 0; i < AV_NUM_DATA_POINTERS; ++i){
                     if(dst[i] != nullptr)
-                        planes.push_back(new bitmap(dst[i], _codec_ctx->width, _codec_ctx->height, bitmap::pixel_format::rgba, false));
+                        planes.push_back(new image(dst[i], _codec_ctx->width, _codec_ctx->height, bitmap::pixel_format::rgb, _linesize[0], false));
                 }
 
-                return new video::frame(_pos, _frame->pts*av_q2d(_codec_ctx->time_base), planes);
+                _time = av_frame_get_best_effort_timestamp(_frame)*av_q2d(_stream->time_base);
+                return new video::frame(_time, planes);
             }
         }
     }

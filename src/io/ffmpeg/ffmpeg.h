@@ -21,7 +21,7 @@ AVDictionary *ffmpeg_alloc_dictionary(const settings & s);
 
 int ffmpeg_open_input(AVFormatContext **ctx, const resource & r, AVInputFormat *, AVDictionary **);
 
-bool ffmpeg_load_resource(resource & r, std::vector<source *> & sources, const settings & s);
+bool ffmpeg_load_resource(resource & r, std::vector<source *> & sources);
 
 }
 }

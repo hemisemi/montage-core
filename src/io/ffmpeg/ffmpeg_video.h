@@ -20,7 +20,7 @@ class resource;
 
 class ffmpeg_video : public video::source{
 public:
-    ffmpeg_video(const io::resource & r, size_t stream_index, const settings & s);
+    ffmpeg_video(const io::resource & r, size_t stream_index);
     ~ffmpeg_video();
 
     class parser : public video::source::parser{
@@ -29,6 +29,10 @@ public:
         ~parser();
 
         video::frame *read_frame();
+
+        double time() const;
+
+        double seek(double time);
 
 	private:
         const ffmpeg_video & _src;
@@ -42,7 +46,7 @@ public:
         int _linesize[8];
 
         double _duration;
-        size_t _pos;
+        double _time;
 
         AVFrame *_frame;
         AVPacket *_packet;

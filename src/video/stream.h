@@ -12,7 +12,7 @@ class stream : public montage::source{
 public:
 	virtual data_type type() const;
 
-    virtual void draw(frame *, size_t pos, size_t fps) = 0;
+    virtual void draw(frame *) = 0;
 
 private:
     //

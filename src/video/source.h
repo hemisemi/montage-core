@@ -15,6 +15,10 @@ public:
         virtual ~parser() = 0;
 
         virtual frame *read_frame() = 0;
+
+        virtual double time() const = 0;
+
+        virtual double seek(double time) = 0;
     };
 
     data_type type() const;

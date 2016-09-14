@@ -9,7 +9,7 @@ namespace hsm{
 namespace montage{
 namespace io{
 
-resource::resource(const settings & s) : _settings(s){
+resource::resource(){
 	//
 }
 
@@ -47,7 +47,7 @@ bool resource::load(const hsm::uri & uri){
         return false;
     }
 
-    if(ffmpeg_load_resource(*this, _sources, _settings))
+    if(ffmpeg_load_resource(*this, _sources))
         return true;
 
     std::cerr << "cannot open resource `" << uri << "'" << std::endl;

@@ -5,6 +5,8 @@
 #include "../video/source.h"
 #include "../video/frame_buffer.h"
 
+#include <hsm/paint/painter.h>
+
 namespace hsm{
 namespace montage{
 
@@ -28,8 +30,9 @@ private:
     class output_stream : public video::stream{
     public:
         output_stream(video::input *input);
+        ~output_stream();
 
-        void draw(video::frame *, size_t pos, size_t fps);
+        void draw(video::frame *);
 
         void refresh();
 
@@ -38,7 +41,11 @@ private:
         video::source *_source;
         video::source::parser *_parser;
 
+        video::frame *_frame;
         video::frame_buffer _buffer;
+        hsm::painter _painter;
+
+        double _time;
     };
 
     video::input *_input;

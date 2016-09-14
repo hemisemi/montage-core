@@ -128,21 +128,16 @@ int ffmpeg_open_input(AVFormatContext **ctx, const resource & r, AVInputFormat *
     return status;
 }
 
-bool ffmpeg_load_resource(resource & r, std::vector<source *> & sources, const settings & s){
+bool ffmpeg_load_resource(resource & r, std::vector<source *> & sources){
     AVInputFormat *input_format = nullptr;
     AVFormatContext *format_ctx = avformat_alloc_context();
 
     format_ctx->flags |= AVFMT_FLAG_GENPTS;
 
-    AVDictionary *options = ffmpeg_alloc_dictionary(s);
-
     // Check out format
-    if(ffmpeg_open_input(&format_ctx, r, input_format, &options) < 0){
-        av_dict_free(&options);
+    if(ffmpeg_open_input(&format_ctx, r, input_format, nullptr) < 0){
         return false;
     }
-
-    av_dict_free(&options);
 
     // Retrieve stream information
     if(avformat_find_stream_info(format_ctx, nullptr) < 0){
@@ -150,7 +145,7 @@ bool ffmpeg_load_resource(resource & r, std::vector<source *> & sources, const s
     }
 
     // Dump information about file onto standard error
-    av_dump_format(format_ctx, 0, r.uri().to_string().c_str(), 0);
+    //av_dump_format(format_ctx, 0, r.uri().to_string().c_str(), 0);
 
     for(size_t i = 0; i < format_ctx->nb_streams; ++i){
         AVCodecParameters *codec_params = format_ctx->streams[i]->codecpar;
@@ -161,7 +156,7 @@ bool ffmpeg_load_resource(resource & r, std::vector<source *> & sources, const s
 
         if(codec_params->codec_type == AVMEDIA_TYPE_VIDEO){
             // video stream
-            sources.push_back((source*)new ffmpeg_video(r, i, s));
+            sources.push_back((source*)new ffmpeg_video(r, i));
         }
     }
 
