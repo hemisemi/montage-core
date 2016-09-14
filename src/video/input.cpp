@@ -9,8 +9,8 @@ input::input(const ref<video::source> & src) : montage::input(montage::source::v
     //
 }
 
-hsm::ref<video::source> input::source() const{
-	return (hsm::ref<video::source>)montage::input::source();
+ref<video::source> input::source() const{
+    return ref<video::source>(montage::input::source());
 }
 
 }

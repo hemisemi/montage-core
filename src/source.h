@@ -1,9 +1,11 @@
 #pragma once
 
+#include "object.h"
+
 namespace hsm{
 namespace montage{
 
-class source{
+class source : public object{
 public:
 	enum data_type{
 		numeric,
