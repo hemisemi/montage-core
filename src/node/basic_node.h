@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include "../object.h"
 
 namespace hsm{
 namespace montage{
@@ -10,9 +11,9 @@ class source;
 
 namespace node{
 
-class basic_node{
+class basic_node : public object{
 public:
-    virtual ~basic_node() = 0;
+	basic_node(object *parent);
 
     const std::vector<input *> & inputs() const;
     const std::vector<source *> & outputs() const;

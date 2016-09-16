@@ -156,7 +156,7 @@ bool ffmpeg_load_resource(resource & r, std::vector<source *> & sources){
 
         if(codec_params->codec_type == AVMEDIA_TYPE_VIDEO){
             // video stream
-            sources.push_back((source*)new ffmpeg_video(r, i));
+			sources.push_back((source*)new ffmpeg_video(r, i, &r));
         }
     }
 

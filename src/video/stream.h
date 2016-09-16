@@ -10,6 +10,8 @@ class frame;
 
 class stream : public montage::source{
 public:
+	stream(object *parent);
+
 	virtual data_type type() const;
 
     virtual void draw(frame *) = 0;

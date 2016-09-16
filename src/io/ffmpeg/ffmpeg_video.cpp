@@ -21,7 +21,7 @@ namespace hsm{
 namespace montage{
 namespace io{
 
-ffmpeg_video::ffmpeg_video(const io::resource & r, size_t stream_index) : _resource(r){
+ffmpeg_video::ffmpeg_video(const io::resource & r, size_t stream_index, object *parent) : video::source(parent), _resource(r){
 	_index = stream_index;
     _dic = nullptr;
 }

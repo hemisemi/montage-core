@@ -21,6 +21,8 @@ public:
         virtual double seek(double time) = 0;
     };
 
+	source(object *parent);
+
     data_type type() const;
 
     virtual parser *new_parser() = 0;

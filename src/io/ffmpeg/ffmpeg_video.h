@@ -20,7 +20,7 @@ class resource;
 
 class ffmpeg_video : public video::source{
 public:
-    ffmpeg_video(const io::resource & r, size_t stream_index);
+	ffmpeg_video(const io::resource & r, size_t stream_index, object *parent);
     ~ffmpeg_video();
 
     class parser : public video::source::parser{

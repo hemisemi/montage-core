@@ -17,6 +17,7 @@ public:
 		video_stream
 	};
 
+	source(object *parent);
 	virtual ~source() = 0;
 
 	virtual data_type type() const = 0;

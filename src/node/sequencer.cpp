@@ -11,9 +11,9 @@ namespace hsm{
 namespace montage{
 namespace node{
 
-sequencer::sequencer(){
+sequencer::sequencer(object *parent) : basic_node(parent){
     _input = new video::input;
-    _output = new output_stream(_input);
+	_output = new output_stream(_input, this);
 
     inputs().push_back(_input);
     outputs().push_back(_output);
@@ -31,7 +31,7 @@ video::stream *sequencer::output() const{
     return _output;
 }
 
-sequencer::output_stream::output_stream(video::input *input) : _buffer(FRAME_BUFFER_SIZE){
+sequencer::output_stream::output_stream(video::input *input, object *parent) : video::stream(parent), _buffer(FRAME_BUFFER_SIZE){
     _input = input;
     _source = nullptr;
     _parser = nullptr;

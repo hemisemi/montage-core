@@ -6,6 +6,10 @@ namespace hsm{
 namespace montage{
 namespace video{
 
+source::source(object *parent) : montage::source(parent){
+	//
+}
+
 source::parser::~parser(){
     //
 }

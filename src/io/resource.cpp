@@ -9,8 +9,15 @@ namespace hsm{
 namespace montage{
 namespace io{
 
-resource::resource(){
+resource::resource(object *parent) : object(parent){
 	//
+}
+
+resource::~resource(){
+	if(_protocol != nullptr)
+		delete _protocol;
+	for(source *src : _sources)
+		delete src;
 }
 
 resource::instance::~instance(){

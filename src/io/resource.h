@@ -4,6 +4,7 @@
 #include <string>
 #include <hsm/uri.h>
 #include <ios>
+#include "../object.h"
 
 namespace hsm{
 namespace montage{
@@ -15,9 +16,10 @@ namespace io{
 
 class protocol;
 
-class resource{
+class resource : public object{
 public:
-    resource();
+	resource(object *parent);
+	~resource();
 
     class instance{
     public:

@@ -4,8 +4,8 @@ namespace hsm{
 namespace montage{
 namespace node{
 
-basic_node::~basic_node(){
-    //
+basic_node::basic_node(object *parent) : object(parent){
+	//
 }
 
 const std::vector<input *> & basic_node::inputs() const{

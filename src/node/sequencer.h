@@ -20,7 +20,7 @@ namespace node{
 
 class sequencer : public basic_node{
 public:
-    sequencer();
+	sequencer(object *parent);
     ~sequencer();
 
     video::input *input() const;
@@ -29,7 +29,7 @@ public:
 private:
     class output_stream : public video::stream{
     public:
-        output_stream(video::input *input);
+		output_stream(video::input *input, object *parent);
         ~output_stream();
 
         void draw(video::frame *);

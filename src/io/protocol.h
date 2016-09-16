@@ -10,6 +10,8 @@ namespace io{
 
 class protocol{
 public:
+	virtual ~protocol() = 0;
+
     virtual std::string protocol_name() const = 0;
     virtual resource::instance *open() const = 0;
 
